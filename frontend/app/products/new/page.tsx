@@ -10,6 +10,7 @@ export default function NewProductPage() {
   const [price, setPrice] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,7 +24,7 @@ export default function NewProductPage() {
         return;
       }
 
-      const productRes = await fetch('http://localhost:3000/products', {
+      const productRes = await fetch(`${API_URL}/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

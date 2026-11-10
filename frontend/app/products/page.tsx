@@ -15,6 +15,7 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
   useEffect(() => {
     async function fetchProducts() {
@@ -26,7 +27,7 @@ export default function ProductsPage() {
       }
 
       try {
-        const res = await fetch('http://localhost:3000/products', {
+        const res = await fetch(`${API_URL}/products`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
