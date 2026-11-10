@@ -30,7 +30,7 @@ async function bootstrap() {
       'http://localhost:3001',
       'https://fullstack-shop-nu.vercel.app',
     ].filter(Boolean),
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
 
