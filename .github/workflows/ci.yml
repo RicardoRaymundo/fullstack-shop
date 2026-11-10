@@ -1,0 +1,35 @@
+name: CI - Fullstack Shop
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # --- BACKEND (NestJS) ---
+      - name: Instalar Dependências do Backend
+        run: cd backend && npm install
+
+      - name: Rodar Build do Backend
+        run: cd backend && npm run build
+
+      # --- FRONTEND (Next.js) ---
+      - name: Instalar Dependências do Frontend
+        run: cd frontend && npm install
+
+      - name: Rodar Build do Frontend
+        run: cd frontend && npm run build
