@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import Link from 'next/link';
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -19,11 +21,46 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="pt">
+      <body className="min-h-screen bg-gray-50 text-gray-950 flex flex-col antialiased">
+        {/* Barra de Navegação Superior (Navbar) */}
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white font-bold text-sm shadow-sm">
+                FS
+              </span>
+              <span className="font-semibold text-gray-900 tracking-tight">Fullstack Shop</span>
+            </div>
+
+            <nav className="flex items-center space-x-6 text-sm font-medium">
+              <Link 
+                href="/home" 
+                className="text-gray-600 hover:text-indigo-600 transition-colors"
+              >
+                Início
+              </Link>
+              <Link 
+                href="/products" 
+                className="text-gray-600 hover:text-indigo-600 transition-colors"
+              >
+                Produtos
+              </Link>
+              <Link 
+                href="/login" 
+                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors shadow-sm"
+              >
+                Entrar
+              </Link>
+            </nav>
+          </div>
+        </header>
+
+        {/* Conteúdo Principal das Páginas */}
+        <div className="flex-1">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

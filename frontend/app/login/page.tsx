@@ -32,7 +32,7 @@ export default function LoginPage() {
 
             localStorage.setItem('access_token', data.access_token);
 
-            router.push('/products');
+            router.push('/home');
             router.refresh();
         } catch (err: any) {
             setError(err.message || 'Ocorreu um erro ao fazer login.');
