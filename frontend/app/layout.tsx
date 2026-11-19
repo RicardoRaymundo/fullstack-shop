@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import Link from 'next/link';
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Conteúdo Principal das Páginas */}
         <div className="flex-1">
           {children}
+          <Toaster position="top-right" richColors />
         </div>
       </body>
     </html>
