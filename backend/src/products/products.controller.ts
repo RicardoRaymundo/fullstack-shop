@@ -1,9 +1,10 @@
-import { Body, Controller, Post, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Get, UseGuards, Delete, Param } from '@nestjs/common';
 import { ProductsService } from './products.service.js';
 import { CreateProductDto } from './dto/create-product.dto.js';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('products') // <-- Adiciona a tag "products" no Swagger
 @Controller('products')
 @ApiBearerAuth() // <-- Habilita o cadeado nas rotas deste controller no Swagger
 export class ProductsController {
@@ -19,5 +20,11 @@ export class ProductsController {
     @UseGuards(AuthGuard('jwt'))
     findAll() {
         return this.productsService.findAll();
+    }
+
+    @Delete(':id')
+    @UseGuards(AuthGuard('jwt'))
+    remove(@Param('id') id: string) {
+        return this.productsService.remove(id);
     }
 }
