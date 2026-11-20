@@ -6,6 +6,7 @@ import { ProductsService } from './products.service.js';
 const mockProductsService = {
   create: vi.fn().mockImplementation((dto: CreateProductDto) => Promise.resolve({ id: '1-uuid', ...dto })),
   findAll: vi.fn().mockResolvedValue([{ id: '1-uuid', name: 'Croissant', price: 4.50 }]),
+  remove: vi.fn(),
 };
 
 describe('ProductsController', () => {
@@ -13,6 +14,7 @@ describe('ProductsController', () => {
   let service: ProductsService;
 
   beforeEach(async () => {
+    vi.clearAllMocks();
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProductsController],
       providers: [
@@ -47,4 +49,16 @@ describe('ProductsController', () => {
       expect(service.findAll).toHaveBeenCalled();
     });
   });
+
+  describe('remove', () => {
+    it('should remove a product via controller', async () => {
+      const deletedProduct = { id: '1-uuid', name: 'Croissant', price: 4.50 };
+      vi.mocked(service.remove).mockResolvedValue(deletedProduct as any);
+
+      const result = await controller.remove('1-uuid');
+
+      expect(result).toEqual(deletedProduct);
+      expect(service.remove).toHaveBeenCalledWith('1-uuid');
+    })
+  })
 });
